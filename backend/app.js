@@ -1,0 +1,31 @@
+const express = require('express'); //import framework express
+const Sequelize = require('sequelize');
+const helmet = require("helmet"); //package sécurité pour app express
+
+//import des routeurs
+const userRoutes = require('./routes/user');
+
+//connexion API à la BDD (mysql via sequelize)
+
+
+const app = express(); //création application express
+
+app.use(helmet());
+
+//middleware d'ajout de headers à l'objet response pour éviter les erreurs de CORS
+app.use((req, res, next) => {
+    //accès à notre API depuis n'importe quelle origine 
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
+    //ajout des headers mentionnés aux requêtes envoyées vers notre API
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    //envoi des requêtes avec les méthodes mentionnées 
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+  });
+
+//transformation du corps de la requete en json
+app.use(express.json());
+
+app.use('/api/user', userRoutes);
+
+module.exports = app; //export de l'app pour y accéder depuis les autres fichiers
