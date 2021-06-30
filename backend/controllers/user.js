@@ -13,7 +13,7 @@ exports.signup = (req, res, next) => {
     const bio = req.body.bio;
 
     if (email == null || username == null || password == null) {
-        return res.status(400).json({ 'error' : 'missing parameters'});
+        return res.status(400).json({ 'error' : 'missing parameters kiki'});
     }
 
     //todo verify pseudo lenght, mail regex, password, etc
