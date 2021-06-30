@@ -1,22 +1,22 @@
+//import
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const User = require('../models/user');
 
+//routes
 exports.signup = (req, res, next) => {
 
     //params
-    var email = req.body.email;
-    var username = req.body.username;
-    var password = req.body.password;
-    var bio = req.body.bio;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const bio = req.body.bio;
 
     if (email == null || username == null || password == null) {
         return res.status(400).json({ 'error' : 'missing parameters'});
     }
 
     //todo verify pseudo lenght, mail regex, password, etc
-
     User.findOne({
         attributes: ['email'],
         where: { email: email }
@@ -24,7 +24,7 @@ exports.signup = (req, res, next) => {
     .then(function(userFound) {
         if (!userFound) {
             bcrypt.hash(password, 5, function (err, bcryptedPassword) {
-                var newUser = User.create({
+                const newUser = User.create({
                     email: email,
                     username: username,
                     password: bcryptedPassword,
@@ -51,5 +51,37 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
+
+    //params
+    const email = req.body.email;
+    const password = req.body.password;
     
+    if (email == null || password == null) {
+        return res.status(400).json({ 'error' : 'missing parameters'});
+    }
+
+    //todo verify pseudo lenght, mail regex, password, etc
+    User.findOne({
+        where: { email: email }
+    })
+    .then(function(userFound) {
+        if (userFound) {
+            bcrypt.compare(password, userFound.password, function(errBycrypt, resBycrypt) {
+                if (resBycrypt) {
+                    return res.status(200).json({
+                        'userId': userFound.id,
+                        'token': 'THE TOKEN'
+                    });
+                } else {
+                    return res.status(403).json({ 'error': 'invalid password'});
+                }
+            })
+        }
+        else {
+            return res.status(404).json({ 'error': 'user user not exist in DB' });
+        }
+    })
+    .catch(function(err) {
+        return res.status(500).json({ 'error': 'unable to verify user'});
+    })
 }
