@@ -1,3 +1,4 @@
+//migration de la table Messages
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {

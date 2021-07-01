@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-//routes
+//route signup
 exports.signup = (req, res, next) => {
 
     //params
@@ -15,6 +15,11 @@ exports.signup = (req, res, next) => {
     if (email == null || username == null || password == null) {
         return res.status(400).json({ 'error' : 'missing parameters kiki'});
     }
+
+    if (username.length >=13 || username.length <=4 ) {
+        return res.status(400).json({ 'error' : 'mauvais format de pseudo (doit être entre 5 et 12 caractères)'});
+    }
+
 
     //todo verify pseudo lenght, mail regex, password, etc
     User.findOne({
@@ -50,6 +55,7 @@ exports.signup = (req, res, next) => {
     })
 }
 
+//route login
 exports.login = (req, res, next) => {
 
     //params
@@ -85,3 +91,23 @@ exports.login = (req, res, next) => {
         return res.status(500).json({ 'error': 'unable to verify user'});
     })
 }
+
+//route profil
+exports.getUserProfile = (req, res, next) => {
+
+    //getting auth header
+
+    //fonction
+    Message.findOne({
+        attributes: ['id', 'email', 'username', 'bio'],
+        //where: { id: userId}
+    }).then(function(user) {
+        if (user) {
+            res.status(201).json(user);
+        } else {
+            res.status(404).json({ 'erreur': 'utilisateur non trouvé' })
+        }
+    }).catch(function(err) {
+        res.status(500).json({ 'erreur': 'impossibilité de récupérer utilisateur' })
+    })
+  };

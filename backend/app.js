@@ -1,12 +1,9 @@
 const express = require('express'); //import framework express
-const Sequelize = require('sequelize');
 const helmet = require("helmet"); //package sécurité pour app express
 
 //import des routeurs
 const userRoutes = require('./routes/user');
-
-//connexion API à la BDD (mysql via sequelize)
-
+const messageRoutes = require('./routes/message');
 
 const app = express(); //création application express
 
@@ -27,5 +24,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
+app.use('/api/message', messageRoutes);
 
 module.exports = app; //export de l'app pour y accéder depuis les autres fichiers
