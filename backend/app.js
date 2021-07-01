@@ -7,7 +7,9 @@ const messageRoutes = require('./routes/message');
 
 const app = express(); //création application express
 
-app.use(helmet());
+app.use(express.json()); //transformation du corps de la requete en json
+
+app.use(helmet()); 
 
 //middleware d'ajout de headers à l'objet response pour éviter les erreurs de CORS
 app.use((req, res, next) => {
@@ -19,9 +21,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-
-//transformation du corps de la requete en json
-app.use(express.json());
 
 app.use('/api/user', userRoutes);
 app.use('/api/message', messageRoutes);
