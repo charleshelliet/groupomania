@@ -3,14 +3,18 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+//regex
+const EMAIL_REGEX     = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PASSWORD_REGEX  = /^(?=.*\d).{4,10}$/;
+
 //route signup
 exports.signup = (req, res, next) => {
 
-    //params
-    const email = req.body.email;
-    const username = req.body.username;
-    const password = req.body.password;
-    const bio = req.body.bio;
+    //paramètres
+    const email = "charles@gmail.com"; //req.body.email;
+    const username = "Charles"; //req.body.username;
+    const password = "eLamp2021"; //req.body.username;
+    const bio = "Salut"; //req.body.bio;
 
     if (email == null || username == null || password == null) {
         return res.status(400).json({ 'error' : 'missing parameters kiki'});
@@ -20,8 +24,15 @@ exports.signup = (req, res, next) => {
         return res.status(400).json({ 'error' : 'mauvais format de pseudo (doit être entre 5 et 12 caractères)'});
     }
 
+    if (!EMAIL_REGEX.test(email)) {
+        return res.status(400).json({ 'error': 'email non valide' });
+      }
+  
+    if (!PASSWORD_REGEX.test(password)) {
+        return res.status(400).json({ 'error': 'mot de passe invalide (doit être compris etre 4 et 10 caractères et inclure 1 chiffre)' });
+      }
 
-    //todo verify pseudo lenght, mail regex, password, etc
+    //fonction
     User.findOne({
         attributes: ['email'],
         where: { email: email }
