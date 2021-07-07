@@ -8,7 +8,7 @@ const EMAIL_REGEX     = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(
 const PASSWORD_REGEX  = /^(?=.*\d).{4,10}$/;
 
 //route signup
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
 
     //paramètres
     const email = "charles@gmail.com"; //req.body.email;
@@ -33,7 +33,7 @@ exports.signup = (req, res, next) => {
       }
 
     //fonction
-    User.findOne({
+    await User.findOne({
         attributes: ['email'],
         where: { email: email }
     })
