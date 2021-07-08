@@ -1,7 +1,6 @@
 const http = require('http'); //import package http de node et création serveur
 const app = require('./app'); //import de app.js pour utilisation de l'app sur le serveur
 
-
 const normalizePort = val => {
   //fonction qui permet de trouver un port valide, en format numérique ou chaîne de caractères
   const port = parseInt(val, 10);

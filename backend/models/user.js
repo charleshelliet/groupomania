@@ -1,10 +1,15 @@
-'use strict';
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize();
 
-  class User extends Model {}
+class User extends Model {}
 
-  User.init({
+User.init({
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
     email: {
       type: DataTypes.STRING,
       allowNull: false
@@ -19,7 +24,6 @@ const sequelize = new Sequelize();
     },
     bio: {
       type: DataTypes.STRING,
-      allowNull: true,
     },
     isAdmin: {
       type: DataTypes.BOOLEAN
@@ -31,4 +35,4 @@ const sequelize = new Sequelize();
 
 console.log(User === sequelize.models.User);
 
-module.exports = User;
+module.exports = User; 
