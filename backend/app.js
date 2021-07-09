@@ -7,7 +7,7 @@ require('./database');
 
 //import des routeurs
 const userRoutes = require('./routes/user');
-const messageRoutes = require('./routes/message');
+//const messageRoutes = require('./routes/message');
 
 app.use(express.json()); //transformation du corps de la requete en json
 app.use(helmet()); 
@@ -21,6 +21,6 @@ app.use((req, res, next) => {
   });
 
 app.use('/api/user', userRoutes);
-app.use('/api/message', messageRoutes);
+//app.use('/api/message', messageRoutes);
 
 module.exports = app; //export de l'app pour y accéder depuis les autres fichiers
