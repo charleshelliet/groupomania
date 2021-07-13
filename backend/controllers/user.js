@@ -48,3 +48,40 @@ exports.signup = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ 'error': 'impossible de créer un utilisateur' }))
 }
+
+//route login
+exports.login = (req, res, next) => {
+
+  //paramètres
+  const email = 'charles@gmail.com' //req.body.email;
+  const password = 'eLamp2021' //req.body.password;
+  
+  if (email == null || password == null) {
+      return res.status(400).json({ error : 'informations de connexion manquantes'});
+  }
+
+  //fonction
+  User.findOne({
+    where: { email: email }
+})
+.then(function(userFound) {
+    if (userFound) {
+        bcrypt.compare(password, userFound.password, function(errBycrypt, resBycrypt) {
+            if (resBycrypt) {
+                return res.status(200).json({
+                    'userId': userFound.id,
+                    'token': 'RANDOM_TOKEN_SECRET'
+                });
+            } else {
+                return res.status(403).json({ 'error': 'Mot de passe erroné'});
+            }
+        })
+    }
+    else {
+        return res.status(404).json({ 'error': 'Utilisateur introuvable' });
+    }
+})
+.catch(function(err) {
+    return res.status(500).json({ error });
+})
+}
