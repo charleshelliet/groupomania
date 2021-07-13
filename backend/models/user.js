@@ -31,6 +31,7 @@ User.init({
   }, {
     sequelize,
     modelName: 'User',
+    tableName: 'user',
   });
 
 console.log(User === sequelize.models.User);

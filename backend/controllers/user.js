@@ -10,10 +10,10 @@ const PASSWORD_REGEX  = /^(?=.*\d).{4,10}$/;
 exports.signup = (req, res, next) => {
 
   //paramètres
-  const email = "charles@gmail.com"; //req.body.email;
-  const username = "Charles"; //req.body.username;
-  const password = "eLamp2021"; //req.body.password;
-  const bio = "Salut"; //req.body.bio;
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
+  const bio = req.body.bio;
 
   if (email == null || username == null || password == null) {
       return res.status(400).json({ 'error' : 'missing parameters kiki'});
