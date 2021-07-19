@@ -53,8 +53,8 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
 
   //paramètres
-  const email = 'charles@gmail.com' //req.body.email;
-  const password = 'eLamp2021' //req.body.password;
+  const email = "charles.helliet@gmail.com"; //req.body.email;
+  const password = "eLamp2021"; //req.body.password;
   
   if (email == null || password == null) {
       return res.status(400).json({ error : 'informations de connexion manquantes'});
@@ -70,7 +70,11 @@ exports.login = (req, res, next) => {
             if (resBycrypt) {
                 return res.status(200).json({
                     'userId': userFound.id,
-                    'token': 'RANDOM_TOKEN_SECRET'
+                    'token': jwt.sign(
+                        { userFound: userFound._id },
+                        'RANDOM_TOKEN_SECRET',
+                        { expiresIn: '24h' }
+                      )
                 });
             } else {
                 return res.status(403).json({ 'error': 'Mot de passe erroné'});
@@ -85,3 +89,47 @@ exports.login = (req, res, next) => {
     return res.status(500).json({ error });
 })
 }
+
+//route accès profile
+exports.getUserProfile = (req, res, next) => {
+    
+    //fonction
+    User.findOne({
+        attributes: ['id', 'email', 'username', 'bio'],
+        //where: { id: userId}
+    }).then(function(user) {
+        if (user) {
+            res.status(201).json(user);
+        } else {
+            res.status(404).json({ 'erreur': 'utilisateur non trouvé' })
+        }
+    }).catch(function(err) {
+        res.status(500).json({ 'erreur': 'impossibilité de récupérer utilisateur' })
+    })
+  };
+
+//route modification profile
+exports.updateUserProfile = (req, res, next) => {
+    
+    //paramètres
+    bio = 'Ma nouvelle biographie' //req.body.bio;
+
+    //fonction
+    User.findOne({
+        attributes: ['id', 'bio'],
+        //where: { id: userId }
+    })
+        .then(userFound => {
+            if (userFound) {userFound.update({bio: (bio ? bio : userFound.bio)})
+                .then(() => {
+                    if (userFound) {
+                        res.status(201).json({userFound})
+                    }
+                    else {res.status(500).json({ 'error': 'impossible de modifier le profil' });}
+                })
+                .catch(error => res.status(500).json({ 'error': 'impossible de modifier le user' }));}
+
+            else {res.status(404).json({ 'error': 'utilisateur non trouvé' });}
+        })
+        .catch(error => res.status(500).json({ 'error': 'impossible de vérifier le profil' }))
+  };
