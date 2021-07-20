@@ -53,8 +53,8 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
 
   //paramètres
-  const email = "charles.helliet@gmail.com"; //req.body.email;
-  const password = "eLamp2021"; //req.body.password;
+  const email = req.body.email;
+  const password = req.body.password;
   
   if (email == null || password == null) {
       return res.status(400).json({ error : 'informations de connexion manquantes'});

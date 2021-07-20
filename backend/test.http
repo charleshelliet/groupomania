@@ -1,9 +1,10 @@
-post http://localhost:3000/api/user/login/
+post http://localhost:3000/api/message/
 Content-Type: application/json
 
 {
-"email": "charles.helliet@gmail.com",
-"password": "eLamp2021",
+"title": "Publication Allez OM",
+"content": "Bonjour projet numéro 7",
+"userId": 1
 }
 
 //"password": "eLamp2021"
