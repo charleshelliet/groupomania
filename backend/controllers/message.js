@@ -1,11 +1,14 @@
 const Message = require("../models/message");
+const User = require("../models/user");
 
 //route création de message
 exports.createMessage = async (req, res, next) => {
+
   //paramètres
-  const title = "Publication Allez OM"; //req.body.title;
-  const content = "Bonjour projet numéro 7"; //req.body.content;
-  const userId = 1;
+  const title = req.body.title;
+  const content = req.body.content;
+  const userId = 2; //req.body.id;
+  console.log(userId);
 
   if (title == null || content == null) {
     return res.status(400).json({ error: "Paramètres manquants" });
@@ -47,17 +50,19 @@ exports.listMessages = (req, res, next) => {
   }
 
   //fonction
-  models.Message.findAll({
+  Message.findAll({
     order: [order != null ? order.split(":") : ["title", "ASC"]],
     attributes: fields !== "*" && fields != null ? fields.split(",") : null,
     limit: !isNaN(limit) ? limit : null,
     offset: !isNaN(offset) ? offset : null,
+    /*
     include: [
       {
-        model: models.User,
+        model: User,
         attributes: ["username"],
       },
     ],
+    */
   })
     .then(function (messages) {
       if (messages) {

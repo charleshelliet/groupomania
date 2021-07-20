@@ -2,9 +2,6 @@ post http://localhost:3000/api/message/
 Content-Type: application/json
 
 {
-"title": "Publication Allez OM",
-"content": "Bonjour projet numéro 7",
-"userId": 1
+"title": "Eintracht Villiers",
+"content": "topspieler"
 }
-
-//"password": "eLamp2021"
