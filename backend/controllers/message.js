@@ -1,5 +1,5 @@
 const Message = require("../models/message");
-const User = require("../models/user");
+const fs = require('fs'); //gestion des fichiers
 
 //route création de message
 exports.createMessage = async (req, res, next) => {
@@ -7,7 +7,8 @@ exports.createMessage = async (req, res, next) => {
   //paramètres
   const title = req.body.title;
   const content = req.body.content;
-  const userId = 2; //req.body.id;
+  const userId = 1; //req.body.id;
+  const attachment = `${req.protocol}://${req.get('host')}/images/${req.file}`;
   console.log(userId);
 
   if (title == null || content == null) {
@@ -19,12 +20,12 @@ exports.createMessage = async (req, res, next) => {
   }
 
   //fonction
-
   const newMessage = await Message.create({
     title: title,
     content: content,
     likes: 0,
-    userId: userId
+    userId: userId,
+    attachment: attachment
   })
     .then((newMessage) => {
       res.status(201).json(newMessage);
@@ -75,4 +76,26 @@ exports.listMessages = (req, res, next) => {
       console.log(err);
       res.status(500).json({ error: "champs invalides" });
     });
+};
+
+//route suppression message
+exports.deleteMessage = (req, res, next) => {
+
+  /*
+  Message.deleteOne({ _id: req.params.id })
+  .then(() => res.status(200).json({ message: 'Message supprimé !'}))
+  .catch(error => res.status(400).json({ error }));
+  */
+  
+  const id = 8; //req.params.id;
+
+  Message.findOne({
+    where: { _id: id }
+  })
+      .then(message => {
+          Message.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'Message supprimé !'}))
+            .catch(error => res.status(400).json({ error }));
+      })
+      .catch(error => res.status(500).json({ error }));
 };
