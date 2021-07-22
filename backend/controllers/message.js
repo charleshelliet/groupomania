@@ -1,4 +1,5 @@
 const Message = require("../models/message");
+const User = require("../models/user");
 const fs = require('fs'); //gestion des fichiers
 
 //route création de message
@@ -7,7 +8,8 @@ exports.createMessage = async (req, res, next) => {
   //paramètres
   const title = req.body.title;
   const content = req.body.content;
-  const userId = 1; //req.body.id;
+  const userId = 1; //req.body.userId;
+  console.log(req.body);
   const attachment = `${req.protocol}://${req.get('host')}/images/${req.file}`;
   console.log(userId);
 
@@ -81,21 +83,23 @@ exports.listMessages = (req, res, next) => {
 //route suppression message
 exports.deleteMessage = (req, res, next) => {
 
-  /*
-  Message.deleteOne({ _id: req.params.id })
-  .then(() => res.status(200).json({ message: 'Message supprimé !'}))
-  .catch(error => res.status(400).json({ error }));
-  */
-  
-  const id = 8; //req.params.id;
+      const userId = 1;
+      const messageId = req.params.id;
+      console.log(req.params.id);
+      console.log(req.params.userId);
+      console.log(req.params.id);
 
-  Message.findOne({
-    where: { _id: id }
-  })
-      .then(message => {
-          Message.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: 'Message supprimé !'}))
-            .catch(error => res.status(400).json({ error }));
+      User.findOne({ 
+        attributes: ['id'],
+        where: { id: userId } 
       })
-      .catch(error => res.status(500).json({ error }));
+        .then(post => {
+          const filename = post.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${filename}`, () => {
+            Message.deleteOne({ id: messageId })
+              .then(() => res.status(200).json({ message: 'Post supprimé !'}))
+              .catch(error => res.status(400).json({ error }));
+          });
+        })
+        .catch(error => res.status(500).json({ error }));
 };
