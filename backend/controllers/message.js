@@ -144,11 +144,16 @@ exports.updateMessage = (req, res, next) => {
   //const userId = 1;
   //console.log(req.params.userId);
   const messageId = req.params.id;
+  const title = req.body.title;
+  const content = req.body.content;
   console.log(req.params.id);
 
   Message.findOne({where: {id: messageId}})
     .then(post => {
-        post.update()
+        post.update({
+         title: (title ? title : post.title),
+         content: (content ? content : post.content)
+        })
           .then(() => res.status(200).json({ message: 'Post modifié !'}))
           .catch(error => {
             console.log(error)

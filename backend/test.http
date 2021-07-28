@@ -29,5 +29,6 @@ put http://localhost:3000/api/message/9/
 Content-Type: application/json
 
 {
-    "title": "Changement de titre"
+    "title": "Changement de titre",
+    "content": "Je sais faire une requête PUT!"
 }
