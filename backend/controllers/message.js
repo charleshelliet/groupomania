@@ -83,23 +83,80 @@ exports.listMessages = (req, res, next) => {
 //route suppression message
 exports.deleteMessage = (req, res, next) => {
 
-      const userId = 1;
+      //const userId = 1;
+      //console.log(req.params.userId);
       const messageId = req.params.id;
       console.log(req.params.id);
-      console.log(req.params.userId);
-      console.log(req.params.id);
 
-      User.findOne({ 
-        attributes: ['id'],
-        where: { id: userId } 
-      })
+      Message.findOne({where: {id: messageId}})
         .then(post => {
-          const filename = post.imageUrl.split('/images/')[1];
-          fs.unlink(`images/${filename}`, () => {
-            Message.deleteOne({ id: messageId })
+          const filename = (post.attachment || "").split('/images/')[1];
+          if(filename) {
+            fs.unlink(`images/${filename}`, () => {
+            //Message.deleteOne({where: {id: messageId}})
+            post.destroy()
               .then(() => res.status(200).json({ message: 'Post supprimé !'}))
-              .catch(error => res.status(400).json({ error }));
+              .catch(error => {
+                console.log(error)
+                res.status(400).json({ error })
+              });
           });
+        }
+        }) 
+        .catch(error =>{
+          console.log(error)
+          res.status(500).json({ error })
         })
-        .catch(error => res.status(500).json({ error }));
+};
+
+/*
+//route modification message + écrasement photo dossier
+exports.updateMessage = (req, res, next) => {
+  
+  const messageId = req.params.id; 
+  
+  let messageObject = {};
+
+  req.file ? (Message.findOne({where: {id: messageId}})
+    .then((message) => {
+      const filename = message.attachment.split('/images/')[1]
+      fs.unlinkSync(`images/${filename}`)
+    }),
+    messageObject = {
+      ...JSON.parse(req.body.message),
+      attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    }
+  ) : ( messageObject = { ...req.body })
+  message.update()
+  //Message.updateOne({_id: req.params.id}, {...messageObject, _id: req.params.id})
+    .then(() => res.status(200).json({
+      message: 'Publication mise à jour !'
+    }))
+    .catch((error) => res.status(400).json({
+      error
+    }))
+};
+*/
+
+//route modification message
+exports.updateMessage = (req, res, next) => {
+
+  //const userId = 1;
+  //console.log(req.params.userId);
+  const messageId = req.params.id;
+  console.log(req.params.id);
+
+  Message.findOne({where: {id: messageId}})
+    .then(post => {
+        post.update()
+          .then(() => res.status(200).json({ message: 'Post modifié !'}))
+          .catch(error => {
+            console.log(error)
+            res.status(400).json({ error })
+          });
+    }) 
+    .catch(error =>{
+      console.log(error)
+      res.status(500).json({ error })
+    })
 };

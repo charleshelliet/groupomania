@@ -17,12 +17,17 @@ Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjY5NDMzOTEs
 }
 
 ###
-
 delete http://localhost:3000/api/message/8/
 Content-Type: application/json
 
 {
-"id": 8,
-"userId": 1
+
 }
 
+###
+put http://localhost:3000/api/message/9/
+Content-Type: application/json
+
+{
+    "title": "Changement de titre"
+}
