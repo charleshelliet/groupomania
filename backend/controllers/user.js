@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 //regex
 const EMAIL_REGEX     = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PASSWORD_REGEX  = /^(?=.*\d).{4,10}$/;
+const PASSWORD_REGEX  = /^(?=.*\d).{4,20}$/;
 
 //route signup
 exports.signup = (req, res, next) => {
@@ -28,7 +28,7 @@ exports.signup = (req, res, next) => {
   }
 
   if (!PASSWORD_REGEX.test(password)) {
-    return res.status(400).json({ 'error': 'mot de passe invalide (doit être compris etre 4 et 10 caractères et inclure 1 chiffre)' });
+    return res.status(400).json({ 'error': 'mot de passe invalide (doit être compris etre 4 et 20 caractères et inclure 1 chiffre)' });
   }
 
   //fonction
