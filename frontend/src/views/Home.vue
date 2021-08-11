@@ -1,18 +1,31 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+  <div class="container-fluid gedf-wrapper">
+    <div class="row">
+      <UserCard/>
+      <div class="col-md-6 gedf-main">
+      <MakePost/>
+      <PostWall/>
+    </div>
+    </div>
   </div>
+
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import UserCard from '@/components/UserCard.vue'
+import MakePost from '@/components/MakePost.vue'
+import PostWall from '@/components/PostWall.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    UserCard,
+    MakePost,
+    PostWall
   }
 }
 </script>
+
+
