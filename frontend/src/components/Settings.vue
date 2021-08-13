@@ -16,3 +16,9 @@ export default {
   name: 'Settings',
 }
 </script>
+
+<style scoped>
+    .card {
+        text-align: left;
+    }
+</style>

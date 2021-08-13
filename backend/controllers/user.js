@@ -93,10 +93,13 @@ exports.login = (req, res, next) => {
 //route accès profile
 exports.getUserProfile = (req, res, next) => {
     
+    const userId = req.params.id;
+    console.log(req.params.id);
+
     //fonction
     User.findOne({
         attributes: ['id', 'email', 'username', 'bio'],
-        //where: { id: userId}
+        where: { id: userId}
     }).then(function(user) {
         if (user) {
             res.status(201).json(user);
@@ -112,12 +115,32 @@ exports.getUserProfile = (req, res, next) => {
 exports.updateUserProfile = (req, res, next) => {
     
     //paramètres
-    bio = 'Ma nouvelle biographie' //req.body.bio;
+    const userId = req.params.id;
+    const bio = req.body.bio;
+    console.log(userId);
+    console.log(bio);
+
+    User.findOne({where: {id: userId}})
+    .then(user => {
+        user.update({
+            bio: (bio ? bio : user.bio)
+        })
+          .then(() => res.status(200).json({ message: 'Bio modifiée !'}))
+          .catch(error => {
+            console.log(error)
+            res.status(400).json({ error })
+          });
+    }) 
+    .catch(error =>{
+      console.log(error)
+      res.status(500).json({ error })
+    })
 
     //fonction
+    /*
     User.findOne({
         attributes: ['id', 'bio'],
-        //where: { id: userId }
+        where: { id: userId }
     })
         .then(userFound => {
             if (userFound) {userFound.update({bio: (bio ? bio : userFound.bio)})
@@ -132,4 +155,5 @@ exports.updateUserProfile = (req, res, next) => {
             else {res.status(404).json({ 'error': 'utilisateur non trouvé' });}
         })
         .catch(error => res.status(500).json({ 'error': 'impossible de vérifier le profil' }))
+    */
   };

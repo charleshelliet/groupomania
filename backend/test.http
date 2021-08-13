@@ -1,3 +1,5 @@
+//Test API routes USERS
+
 post http://localhost:3000/api/user/login/
 Content-Type: application/json
 
@@ -5,6 +7,33 @@ Content-Type: application/json
 "email": "charles@gmail.com",
 "password": "eLamp2021"
 }
+
+###
+post http://localhost:3000/api/user/login/
+Content-Type: application/json
+
+{
+"email": "charles.helliet@gmail.com",
+"password": "eLamp2021"
+}
+
+###
+get http://localhost:3000/api/user/profile/2/
+Content-Type: application/json
+
+{
+
+}
+
+###
+put http://localhost:3000/api/user/profile/1/
+Content-Type: application/json
+
+{
+    "bio": "Benoît Cheyrou, né le 3 mai 1981 à Suresnes dans le département des Hauts-de-Seine, est un ancien footballeur français à la retraite qui évoluait au poste de milieu de terrain."
+}
+
+//Test API routes MESSAGES
 
 ###
 post http://localhost:3000/api/message/

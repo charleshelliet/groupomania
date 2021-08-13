@@ -69,6 +69,7 @@
 						});
 						console.log(response);
 						localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('id', response.data.userId);
                         this.$router.push('/');
 					}
         }
@@ -87,6 +88,16 @@
     &.router-link-exact-active {
       color: #42b983;
     }
+  }
+  .row {
+      margin-top: 2%;
+  }
+  .btn {
+    background-color: blue;
+    color: white;
+  }
+  .panel {
+	border-color: grey;
   }
 }
 </style>

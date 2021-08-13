@@ -1,10 +1,10 @@
-<template v-for="message in messages" :key="message.id">
-    <div class="card gedf-card">
+<template>
+    <div id="postwall">
         <ul>
             <li v-bind:key="message.id" v-for="message in messages"> 
+                <div class="card gedf-card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between align-items-center">
                             <div class="mr-2">
                                 <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                             </div>
@@ -18,14 +18,13 @@
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">Configuration</div>
-                                        <a class="dropdown-item" href="#">Save</a>
-                                        <a class="dropdown-item" href="#">Hide</a>
-                                        <a class="dropdown-item" href="#">Report</a>
+                                    <div class="h6 dropdown-header">Options</div>
+                                        <a class="dropdown-item" href="#">Sauvegarder</a>
+                                        <a class="dropdown-item" href="#">Cacher</a>
+                                        <a class="dropdown-item" href="#">Signaler</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <div class="card-body">
                         <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{message.updatedAt}}</div>
@@ -35,11 +34,12 @@
                             <p class="card-text">{{message.content}}</p>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                            <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                            <a href="#" class="card-link"><i class="fa fa-gittip"></i> J'aime</a>
+                            <a href="#" class="card-link"><i class="fa fa-comment"></i> Commenter</a>
+                            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Partager</a>
                         </div>
                     
+                </div>
                 </div>
             </li>   
         </ul> 
@@ -64,3 +64,24 @@ export default {
         }
     }   
 </script>
+
+<style scoped lang="scss">
+#postwall {
+    .card {
+        margin-top: 5%;
+    }
+    .card-header {
+        padding: inherit;
+    }
+    .card-body {
+        background-color: white;
+        text-align: left;
+    }
+    ul {
+        padding: inherit;
+    }
+    .d-flex {
+        padding: 2%;
+    }
+}
+</style>

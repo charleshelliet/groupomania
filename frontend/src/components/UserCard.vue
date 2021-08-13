@@ -3,21 +3,13 @@
     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                <div class="h5">Charles</div>
-                                <div class="h7 text-muted"><em>email</em></div>
-                                <div class="h7">bio
-                                </div>
+                                <div class="h5" v-if="user">@{{ user.username }}</div>
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <div class="h6 text-muted">Followers</div>
-                                    <div class="h5">5.2342</div>
+                                <div class="h7 text-muted"><em>{{ user.email }}</em></div>
                                 </li>
-                                <li class="list-group-item">
-                                    <div class="h6 text-muted">Following</div>
-                                    <div class="h5">6758</div>
-                                </li>
-                                <li class="list-group-item">Vestibulum at eros</li>
+                                <li class="list-group-item bio">{{ user.bio }}</li>
                             </ul>
                         </div>
                     </div>
@@ -25,8 +17,29 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'UserCard',
+  data() {
+		return {
+			user: '',
+			}
+		},
+    async created() {
+        const response = await axios.get('http://localhost:3000/api/user/profile/' + localStorage.getItem('id'), {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token') 
+                }
+            });
+            console.log(response);
+            this.user = response.data;
+        },
 }
 </script>
 
+<style scoped>
+    .bio {
+        text-align: left;
+    }
+</style>
