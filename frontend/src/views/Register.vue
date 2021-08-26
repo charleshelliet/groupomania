@@ -12,7 +12,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <form @submit="registerSubmit"
+                                <form @submit.prevent="registerSubmit"
 									id="register-form" action="/" method="post" role="form" style="display: block;">
 										<div class="form-group">
 											<input type="text" name="username" v-model="username" id="username" tabindex="1" class="form-control" placeholder="Nom d'utilisateur">
@@ -57,6 +57,19 @@
 					}
 				},
         methods: {
+          async registerSubmit() {
+				const response = await axios.post('http://localhost:3000/api/user/signup/', {
+            username: this.username,
+						email: this.email,
+						password: this.password,
+						bio: this.bio,
+					});
+						console.log(response);
+						localStorage.setItem('token', response.data.token);
+            localStorage.setItem('id', response.data.userId);
+            this.$router.push('/');
+					}
+            /*
             registerSubmit() {
 						const data = {
 							username: this.username,
@@ -66,11 +79,15 @@
 						}
 						axios
 						.post('http://localhost:3000/api/user/signup/', data)
-						.then(res => {console.log(res)})
+						.then(res => {
+              console.log(res);
+              //localStorage.setItem('token', res.data.token);
+              localStorage.setItem('id', res.data.userId);
+                      })
 						.catch(error => {console.log(error)})
-
             this.$router.push('/');
 					}
+          */
         }
     }
 </script>

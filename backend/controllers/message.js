@@ -8,7 +8,7 @@ exports.createMessage = async (req, res, next) => {
   //paramètres
   const title = req.body.title;
   const content = req.body.content;
-  const userId = 1; //req.body.userId;
+  const userId = 5;
   console.log(req.body);
   const attachment = `${req.protocol}://${req.get('host')}/images/${req.file}`;
   console.log(userId);

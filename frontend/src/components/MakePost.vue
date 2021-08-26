@@ -15,9 +15,12 @@
             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <div class="form-group">
                     <label class="sr-only" for="message">post</label>
-                    <textarea class="form-control" id="message" rows="3" placeholder="Quoi de neuf ?"></textarea>
+                    <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.title"></textarea>
                 </div>
-
+                <div class="form-group">
+                    <label class="sr-only" for="message">post</label>
+                    <textarea class="form-control" id="content" rows="3" placeholder="Quoi de neuf ?" v-model="message.content"></textarea>
+                </div>
             </div>
             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
                 <div class="form-group">
@@ -31,7 +34,7 @@
         </div>
         <div class="btn-toolbar justify-content-between">
             <div class="btn-group">
-                <button type="submit" class="btn btn-primary">partager</button>
+                <button type="submit" class="btn btn-primary" @click="sendPost">partager</button>
             </div>
             <div class="btn-group">
                 <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -50,7 +53,30 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'MakePost',
-}
+  data() {
+		return {
+			message: {
+                title: "",
+                content:"",
+                userId: localStorage.userId
+                },
+			}
+		},
+    methods: {
+        sendPost() {
+        axios
+        .post('http://localhost:3000/api/message/', this.message)
+        .then(response => {
+            this.message = response.data;
+            this.$router.push('/');
+            })
+        .catch(error => console.log(error));
+        }
+    }
+    
+}   
 </script>

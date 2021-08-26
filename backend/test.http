@@ -4,8 +4,8 @@ post http://localhost:3000/api/user/login/
 Content-Type: application/json
 
 {
-"email": "charles@gmail.com",
-"password": "eLamp2021"
+"email": "charlesdegalles@england.co.uk",
+"password": "England1948"
 }
 
 ###
@@ -38,10 +38,10 @@ Content-Type: application/json
 ###
 post http://localhost:3000/api/message/
 Content-Type: application/json
-Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjY5NDMzOTEsImV4cCI6MTYyNzAyOTc5MX0.ev4H6jZHhDSnfI5LgDJjKcCcOGr_5h9MaBa7SeySR7w
+Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk5ODkyMDQsImV4cCI6MTYzMDA3NTYwNH0.Z03RixniD9_JVGmJkkskgE0dJ9qavqT_ybyiTtE1oD0
 
 {
-"title": "Publication Test Micro 7",
+"title": "Publication du Prince de Galles numéro 2",
 "content": "Je ne m'arrête jamais !"
 }
 

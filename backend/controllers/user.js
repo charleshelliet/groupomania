@@ -19,8 +19,8 @@ exports.signup = (req, res, next) => {
       return res.status(400).json({ 'error' : 'missing parameters kiki'});
   }
 
-  if (username.length >=13 || username.length <=4 ) {
-    return res.status(400).json({ 'error' : 'mauvais format de pseudo (doit être entre 5 et 12 caractères)'});
+  if (username.length >=20 || username.length <=5 ) {
+    return res.status(400).json({ 'error' : 'mauvais format de pseudo (doit être entre 5 et 20 caractères)'});
 }
 
   if (!EMAIL_REGEX.test(email)) {
@@ -43,7 +43,14 @@ exports.signup = (req, res, next) => {
         bio: bio,
         isAdmin: 0  
     })
-        .then(() => res.status(201).json({ 'Nouvel utilisateur': newUser.id}))
+        .then(() => res.status(201).json({ 
+            'userId': newUser.id,
+            'token': jwt.sign(
+                { hash: hash._id },
+                'RANDOM_TOKEN_SECRET',
+                { expiresIn: '24h' }
+              )
+        }))
         .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ 'error': 'impossible de créer un utilisateur' }))
