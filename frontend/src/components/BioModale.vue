@@ -36,6 +36,7 @@
                     .then(response => {
                         this.bio = response.data;
                         this.$router.push('/');
+                        document.location.reload();
                         })
                     .catch(error => console.log(error));
         }

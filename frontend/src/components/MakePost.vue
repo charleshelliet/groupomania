@@ -73,6 +73,7 @@ export default {
         .then(response => {
             this.message = response.data;
             this.$router.push('/');
+            document.location.reload();
             })
         .catch(error => console.log(error));
         }
