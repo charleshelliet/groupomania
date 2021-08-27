@@ -5,7 +5,8 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <div class="h7">
-                        <a href="#" class="card-link" @click.prevent="updateProfile">Modifier bio</a>
+                        <modale v-bind:revele="revele" v-bind:toggleModale="toggleModale"></modale>
+                        <a @click.prevent="toggleModale" href="#" class="card-link">Modifier profil</a>
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -24,9 +25,22 @@
 <script>
 import axios from 'axios'
 
+import BioModale from './BioModale'
+
 export default {
   name: 'Settings',
+  data() {
+      return {
+          revele: false
+      }
+  },
+  components: {
+      'modale': BioModale
+  },
   methods: {
+      toggleModale() {
+          this.revele = !this.revele
+      },
       deleteAccount() {
           axios.delete('http://localhost:3000/api/user/profile/' + localStorage.getItem('id'), {
             headers: {

@@ -26,11 +26,11 @@ Content-Type: application/json
 }
 
 ###
-put http://localhost:3000/api/user/profile/1/
+put http://localhost:3000/api/user/profile/3/
 Content-Type: application/json
 
 {
-    "bio": "Benoît Cheyrou, né le 3 mai 1981 à Suresnes dans le département des Hauts-de-Seine, est un ancien footballeur français à la retraite qui évoluait au poste de milieu de terrain."
+    "bio": "Alessandro Nesta, né le 19 mars 1976 à Rome, est un ancien footballeur international italien désormais reconverti entraîneur. Considéré comme l'un des meilleurs défenseurs centraux de son époque, il est double vainqueur de la Ligue des champions avec l'AC Milan et a remporté la Coupe du monde 2006."
 }
 
 ###
