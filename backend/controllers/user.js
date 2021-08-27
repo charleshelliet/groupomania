@@ -163,4 +163,26 @@ exports.updateUserProfile = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ 'error': 'impossible de vérifier le profil' }))
     */
-  };
+};
+
+//route suppression utilisateur
+exports.deleteUserProfile = (req, res, next) => {
+
+    const userId = req.params.id;
+    console.log(userId);
+
+    User.findOne({where: {id: userId}})
+    .then(user => {
+        user.destroy()
+          .then(() => res.status(200).json({ message: 'User supprimé !'}))
+          .catch(error => {
+            console.log(error)
+            res.status(400).json({ error })
+          });
+    }) 
+    .catch(error =>{
+      console.log(error)
+      res.status(500).json({ error })
+    })
+
+};

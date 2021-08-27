@@ -24,7 +24,7 @@
 											<input type="password" name="password" v-model="password" id="password" tabindex="2" class="form-control" placeholder="Mot de passe">
 										</div>
 										<div class="form-group">
-											<input type="text" name="bio" v-model="bio" id="bio" tabindex="2" class="form-control" placeholder="Décrivez-vous en quelques mots">
+											<textarea type="text" name="bio" v-model="bio" id="bio" tabindex="2" class="form-control" placeholder="Décrivez-vous en quelques mots"></textarea>
 										</div>
 										<div class="form-group">
 											<div class="row">
@@ -67,7 +67,7 @@
 						console.log(response);
 						localStorage.setItem('token', response.data.token);
             localStorage.setItem('id', response.data.userId);
-            this.$router.push('/');
+            this.$router.push('/login');
 					}
             /*
             registerSubmit() {
@@ -99,22 +99,23 @@
   padding: 30px;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: normal;
+    color: #566777;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: rgb(209,81,90);
+      font-weight: bold;
     }
   }
   .row {
       margin-top: 2%;
   }
   .btn {
-    background-color: green;
+    background-color: rgb(209,81,90);
     color: white;
   }
   .panel {
-	border-color: grey;
+	border-color: black;
   }
 }
 </style>

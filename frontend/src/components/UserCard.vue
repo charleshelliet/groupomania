@@ -1,18 +1,18 @@
 <template>
     
     <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="h5" v-if="user">@{{ user.username }}</div>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                <div class="h7 text-muted"><em>{{ user.email }}</em></div>
-                                </li>
-                                <li class="list-group-item bio">{{ user.bio }}</li>
-                            </ul>
-                        </div>
-                    </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="h5" v-if="user">@{{ user.username }}</div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                <div class="h7 text-muted"><em>{{ user.email }}</em></div>
+                </li>
+                <li class="list-group-item bio">{{ user.bio }}</li>
+            </ul>
+        </div>
+    </div>
 
 </template>
 

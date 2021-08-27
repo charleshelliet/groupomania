@@ -82,22 +82,23 @@
   padding: 30px;
 
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: normal;
+    color: #566777;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: rgb(9,31,67);
+      font-weight: bold;
     }
   }
   .row {
       margin-top: 2%;
   }
   .btn {
-    background-color: blue;
+    background-color: rgb(9,31,67);
     color: white;
   }
   .panel {
-	border-color: grey;
+	border-color: black;
   }
 }
 </style>

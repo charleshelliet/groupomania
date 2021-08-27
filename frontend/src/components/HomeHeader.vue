@@ -13,7 +13,7 @@
                 </div>
             </div>
         </form>
-        <a href="#" class="navbar-link">
+        <a href="#" class="navbar-link" @click.prevent="logOut">
           <p>Se déconnecter</p>
         </a>
     </nav>
@@ -22,6 +22,12 @@
 <script>
 export default {
   name: 'HomeHeader',
+  methods: {
+    logOut() {
+      this.$router.push('/login');
+      localStorage.clear();
+    }
+  }
 }
 </script>
 

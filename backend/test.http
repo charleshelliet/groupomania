@@ -33,6 +33,14 @@ Content-Type: application/json
     "bio": "Benoît Cheyrou, né le 3 mai 1981 à Suresnes dans le département des Hauts-de-Seine, est un ancien footballeur français à la retraite qui évoluait au poste de milieu de terrain."
 }
 
+###
+delete http://localhost:3000/api/user/profile/15/
+Content-Type: application/json
+
+{
+    
+}
+
 //Test API routes MESSAGES
 
 ###
