@@ -23,14 +23,14 @@
         props: ['revele', 'toggleModale'],
         data() {
             return {
-                userId: localStorage.userId,
+                userId: sessionStorage.userId,
                 bio: '',
             }
         },
         methods: {
             updateProfile() {
                 axios
-                    .put('http://localhost:3000/api/user/profile/' + localStorage.getItem('id'), {
+                    .put('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
                         bio: this.bio
                     })
                     .then(response => {

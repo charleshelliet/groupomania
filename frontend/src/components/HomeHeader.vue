@@ -25,7 +25,7 @@ export default {
   methods: {
     logOut() {
       this.$router.push('/login');
-      localStorage.clear();
+      sessionStorage.clear();
     }
   }
 }

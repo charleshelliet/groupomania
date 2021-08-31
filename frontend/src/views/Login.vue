@@ -68,8 +68,9 @@
 							password: this.password
 						});
 						console.log(response);
-						localStorage.setItem('token', response.data.token);
-                        localStorage.setItem('id', response.data.userId);
+						sessionStorage.setItem('token', response.data.token);
+                        sessionStorage.setItem('id', response.data.userId);
+                        //this.$store.commit('setAuthentication', true);
                         this.$router.push('/');
 					}
         }

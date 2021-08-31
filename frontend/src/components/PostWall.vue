@@ -32,6 +32,8 @@
                                 <h5 class="card-title">{{message.title}}</h5>  
                             </a>
                             <p class="card-text">{{message.content}}</p>
+                            <iframe v-if="message.attachment" width="560" height="315" :src="'https://www.youtube.com/embed/' + message.attachment" frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="card-footer">
                             <a href="#" class="card-link"><i class="fa fa-gittip"></i> J'aime</a>

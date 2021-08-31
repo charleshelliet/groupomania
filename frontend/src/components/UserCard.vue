@@ -27,9 +27,9 @@ export default {
 			}
 		},
     async created() {
-        const response = await axios.get('http://localhost:3000/api/user/profile/' + localStorage.getItem('id'), {
+        const response = await axios.get('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token') 
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
                 }
             });
             console.log(response);

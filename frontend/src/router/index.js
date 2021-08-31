@@ -5,7 +5,14 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      if(sessionStorage.getItem('token') == null) {
+        next("/login")
+      } else {
+        next();
+      }
+    }
   },
   {
     path: '/login',
@@ -16,6 +23,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/:pathMatch(.*)',
+    redirect: {
+      name: 'Home'
+    }
   }
 ]
 

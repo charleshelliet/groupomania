@@ -14,12 +14,20 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <div class="form-group">
+                    <label class="sr-only" for="userId">post</label>
+                    <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
+                </div>
+                <div class="form-group">
                     <label class="sr-only" for="message">post</label>
                     <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.title"></textarea>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="message">post</label>
                     <textarea class="form-control" id="content" rows="3" placeholder="Quoi de neuf ?" v-model="message.content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="message">post</label>
+                    <textarea class="form-control" id="content" rows="1" placeholder="Lien Youtube" v-model="message.attachment"></textarea>
                 </div>
             </div>
             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
@@ -62,7 +70,8 @@ export default {
 			message: {
                 title: "",
                 content:"",
-                userId: localStorage.userId
+                attachment:"",
+                userId: sessionStorage.getItem('id')
                 },
 			}
 		},
@@ -77,7 +86,6 @@ export default {
             })
         .catch(error => console.log(error));
         }
-    }
-    
+    }   
 }   
 </script>

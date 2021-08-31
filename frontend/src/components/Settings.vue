@@ -42,9 +42,9 @@ export default {
           this.revele = !this.revele
       },
       deleteAccount() {
-          axios.delete('http://localhost:3000/api/user/profile/' + localStorage.getItem('id'), {
+          axios.delete('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token') 
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
                 }
             });
             this.$router.push('/login');

@@ -8,10 +8,13 @@ exports.createMessage = async (req, res, next) => {
   //paramètres
   const title = req.body.title;
   const content = req.body.content;
-  const userId = 5;
+  const userId = req.body.userId;
   console.log(req.body);
-  const attachment = `${req.protocol}://${req.get('host')}/images/${req.file}`;
+  const url = req.body.attachment;
+  const attachment = url.split("v=")[1].substring(0, 11);
+  //const attachment = `${req.protocol}://${req.get('host')}/images/${req.file}`;
   console.log(userId);
+  console.log(attachment);
 
   if (title == null || content == null) {
     return res.status(400).json({ error: "Paramètres manquants" });
