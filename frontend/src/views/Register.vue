@@ -54,40 +54,27 @@
 						email: '',
 						password: '',
 						bio: '',
+            error: '',
 					}
 				},
         methods: {
-          async registerSubmit() {
-				const response = await axios.post('http://localhost:3000/api/user/signup/', {
-            username: this.username,
-						email: this.email,
-						password: this.password,
-						bio: this.bio,
-					});
-						console.log(response);
-						localStorage.setItem('token', response.data.token);
-            localStorage.setItem('id', response.data.userId);
-            this.$router.push('/login');
-					}
-            /*
-            registerSubmit() {
-						const data = {
-							username: this.username,
-							email: this.email,
-							password: this.password,
-							bio: this.bio,
-						}
-						axios
-						.post('http://localhost:3000/api/user/signup/', data)
-						.then(res => {
-              console.log(res);
-              //localStorage.setItem('token', res.data.token);
-              localStorage.setItem('id', res.data.userId);
+          registerSubmit() {
+                axios
+                    .post('http://localhost:3000/api/user/signup/', {
+                        username: this.username,
+                        email: this.email,
+                        password: this.password,
+                        bio: this.bio
+                    })
+                    .then(response => {
+                        console.log(response);
+                        this.$router.push('/login');
                       })
-						.catch(error => {console.log(error)})
-            this.$router.push('/');
-					}
-          */
+                    .catch(error =>{
+                        console.log(error.response.data);
+                        sessionStorage.setItem('error', error.response.data.error);
+                    } );
+          }
         }
     }
 </script>
