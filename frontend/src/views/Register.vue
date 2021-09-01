@@ -16,12 +16,21 @@
 									id="register-form" action="/" method="post" role="form" style="display: block;">
 										<div class="form-group">
 											<input type="text" name="username" v-model="username" id="username" tabindex="1" class="form-control" placeholder="Nom d'utilisateur">
+                      <div v-if="errors.username" class="text-danger">
+                          <strong v-text="errors.username"></strong>
+                      </div>
 										</div>
 										<div class="form-group">
 											<input type="email" name="email" v-model="email" id="email" tabindex="1" class="form-control" placeholder="Adresse email">
+                      <div v-if="errors.email" class="text-danger">
+                          <strong v-text="errors.email"></strong>
+                      </div>
 										</div>
 										<div class="form-group">
 											<input type="password" name="password" v-model="password" id="password" tabindex="2" class="form-control" placeholder="Mot de passe">
+                      <div v-if="errors.password" class="text-danger">
+                          <strong v-text="errors.password"></strong>
+                      </div>
 										</div>
 										<div class="form-group">
 											<textarea type="text" name="bio" v-model="bio" id="bio" tabindex="2" class="form-control" placeholder="Décrivez-vous en quelques mots"></textarea>
@@ -54,7 +63,11 @@
 						email: '',
 						password: '',
 						bio: '',
-            error: '',
+            errors: {
+              username: '',
+              email: '',
+              password: '',
+            },
 					}
 				},
         methods: {
@@ -70,9 +83,11 @@
                         console.log(response);
                         this.$router.push('/login');
                       })
-                    .catch(error =>{
-                        console.log(error.response.data);
-                        sessionStorage.setItem('error', error.response.data.error);
+                    .catch(err => {
+                        console.log(err.response.data);
+                        this.errors.username = err.response.data.username_error;
+                        this.errors.email = err.response.data.email_error;
+                        this.errors.password = err.response.data.password_error;
                     } );
           }
         }

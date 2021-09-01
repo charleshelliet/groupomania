@@ -16,10 +16,16 @@
                                 id="login-form" action="/" method="post" role="form" style="display: block;">
                                     <div class="form-group">
                                         <input type="email" name="email" v-model="email" id="email" tabindex="1" class="form-control" placeholder="Adresse email">
+                                        <div v-if="errors.email" class="text-danger">
+                                        <strong v-text="errors.email"></strong>
+                                    </div>
                                     </div>
                                     <div class="form-group">
                                             <input type="password" name="password" v-model="password" id="password" tabindex="2" class="form-control" placeholder="Mot de passe">
-                                        </div>
+                                            <div v-if="errors.password" class="text-danger">
+                                            <strong v-text="errors.password"></strong>
+                                     </div>
+                                    </div>
                                         <div class="form-group text-center">
                                             <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                             <label for="remember">Rester connecté</label>
@@ -59,20 +65,31 @@
 					return {
 						username: '',
 						email: '',
+                        errors: {
+                            email: '',
+                            password: '',
+                        }
 					}
 				},
         methods: {
-            async loginSubmit() {
-						const response = await axios.post('http://localhost:3000/api/user/login/', {
+            loginSubmit() {
+				axios
+                    .post('http://localhost:3000/api/user/login/', {
 							email: this.email,
 							password: this.password
-						});
-						console.log(response);
-						sessionStorage.setItem('token', response.data.token);
+						})
+                    .then(response => {
+                        sessionStorage.setItem('token', response.data.token);
                         sessionStorage.setItem('id', response.data.userId);
                         //this.$store.commit('setAuthentication', true);
                         this.$router.push('/');
-					}
+                    })
+                    .catch(err => {
+                        console.log(err.response.data);
+                        this.errors.email = err.response.data.email_error;
+                        this.errors.password = err.response.data.password_error;
+                    })  
+				}
         }
     }
 </script>

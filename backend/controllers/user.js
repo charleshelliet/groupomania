@@ -20,15 +20,15 @@ exports.signup = (req, res, next) => {
   }
 
   if (username.length >=20 || username.length <=5 ) {
-    return res.status(400).json({ 'error' : 'mauvais format de pseudo (doit être entre 5 et 20 caractères)'});
+    return res.status(400).json({ 'username_error' : 'Mauvais format de pseudo (doit être entre 5 et 20 caractères)'});
 }
 
   if (!EMAIL_REGEX.test(email)) {
-    return res.status(400).json({ 'error': 'email non valide' });
+    return res.status(400).json({ 'email_error': 'Adresse email non valide' });
   }
 
   if (!PASSWORD_REGEX.test(password)) {
-    return res.status(400).json({ 'error': 'mot de passe invalide (doit être compris etre 4 et 20 caractères et inclure 1 chiffre)' });
+    return res.status(400).json({ 'password_error': 'Mot de passe invalide (doit être compris etre 4 et 20 caractères et inclure 1 chiffre)' });
   }
 
   //fonction
@@ -84,15 +84,15 @@ exports.login = (req, res, next) => {
                       )
                 });
             } else {
-                return res.status(403).json({ 'error': 'Mot de passe erroné'});
+                return res.status(403).json({ 'password_error': 'Mot de passe erroné'});
             }
         })
     }
     else {
-        return res.status(404).json({ 'error': 'Utilisateur introuvable' });
+        return res.status(404).json({ 'email_error': 'Utilisateur introuvable' });
     }
 })
-.catch(function(err) {
+.catch(function(error) {
     return res.status(500).json({ error });
 })
 }
