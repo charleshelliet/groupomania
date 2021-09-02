@@ -94,9 +94,6 @@ exports.deleteMessage = (req, res, next) => {
 
       Message.findOne({where: {id: messageId}})
         .then(post => {
-          const filename = (post.attachment || "").split('/images/')[1];
-          if(filename) {
-            fs.unlink(`images/${filename}`, () => {
             //Message.deleteOne({where: {id: messageId}})
             post.destroy()
               .then(() => res.status(200).json({ message: 'Post supprimé !'}))
@@ -104,8 +101,8 @@ exports.deleteMessage = (req, res, next) => {
                 console.log(error)
                 res.status(400).json({ error })
               });
-          });
-        }
+          ;
+        
         }) 
         .catch(error =>{
           console.log(error)

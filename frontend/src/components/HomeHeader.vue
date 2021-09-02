@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-white">
+    <nav v-bind:key="user.id" class="navbar navbar-light bg-white">
         <a href="#" class="navbar-brand">
           <img class="header_logo" alt="Corporama logo" src="../assets/icon-left-font-monochrome-black.png">
         </a>
@@ -13,6 +13,11 @@
                 </div>
             </div>
         </form>
+        <div v-if="user.isAdmin === true">
+          <button type="button" class="btn btn-info" @click="adminPage">
+            VUE ADMIN
+          </button>
+        </div>
         <a href="#" class="navbar-link" @click.prevent="logOut">
           <p>Se déconnecter</p>
         </a>
@@ -20,14 +25,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'HomeHeader',
+  data() {
+		return {
+			messages: [],
+      user: '',
+			}
+		},
   methods: {
     logOut() {
       this.$router.push('/login');
       sessionStorage.clear();
+    },
+    adminPage() {
+      this.$router.push('/admin');
     }
-  }
+  },
+    async created() {
+        const response = await axios.get('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+            });
+            console.log(response);
+            this.user = response.data;
+      }
 }
 </script>
 

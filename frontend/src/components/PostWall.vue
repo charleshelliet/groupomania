@@ -1,7 +1,9 @@
 <template>
+
     <div id="postwall">
         <ul>
-            <li v-bind:key="message.id" v-for="message in messages"> 
+            <li v-bind:key="message.id" v-for="message in messages">
+                <modale v-bind:revele="revele" v-bind:toggleModale="toggleModale"></modale>
                 <div class="card gedf-card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
@@ -37,6 +39,7 @@
                             <a href="#" class="card-link"><i class="fa fa-gittip"></i> J'aime</a>
                             <a href="#" class="card-link"><i class="fa fa-comment"></i> Commenter</a>
                             <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Partager</a>
+                            <a v-if="user.isAdmin === true" @click.prevent="toggleModale(message.id)" href="#" class="card-link"><i class="fa fa-edit"></i> Modifier</a>
                         </div>
                     
                 </div>
@@ -49,24 +52,39 @@
 <script>
 import axios from 'axios'
 
+import PostModale from './PostModale'
+
 export default {
   name: 'PostWall',
     data() {
 		return {
 			messages: [],
             user: '',
+            revele: false,
 			}
 		},
+    components: {
+      'modale': PostModale
+    },
     mounted () {
         axios
-        .get('http://localhost:3000/api/message/')
+        .get('http://localhost:3000/api/message/', {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+        })
         .then(response => (this.messages = response.data))
         .catch(error => console.log(error));
         },
     methods: {
+        toggleModale(messageId) {
+            this.revele = !this.revele;
+            console.log(messageId);
+            sessionStorage.setItem('messageId', messageId);
+        },
         deleteMessage(messageId) {
             console.log(messageId);
-            //axios.delete('http://localhost:3000/api/message/' + messageId);
+            axios.delete('http://localhost:3000/api/message/' + messageId);
             document.location.reload();
       }
     },

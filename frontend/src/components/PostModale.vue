@@ -4,9 +4,14 @@
         <div class="overlay">
             <div class="modale card">
                 <div v-on:click="toggleModale" class="btn-modale btn btn-danger">X</div>
-                <h3>Modifiez votre bio :)</h3>
-                <textarea type="text" name="bio" v-model="bio"></textarea>
-                <div v-on:click="toggleModale"><button @click="updateProfile" class="btn btn-success">Valider</button></div>
+                <h3>Modifiez votre publication :)</h3>
+                <div>
+                    <textarea type="text" name="title" v-model="title" placeholder="Titre" rows="1"></textarea>
+                </div>
+                <div>
+                    <textarea type="text" name="content" v-model="content" placeholder="Quoi de neuf ?" rows="3"></textarea>
+                </div>
+                <div v-on:click="toggleModale"><button @click.prevent="updateMessage()" class="btn btn-success">Valider</button></div>
             </div>
         </div>
     </div>
@@ -19,29 +24,22 @@
     import axios from 'axios'
 
     export default {
-        name: 'BioModale',
+        name: 'PostModale',
         props: ['revele', 'toggleModale'],
         data() {
             return {
                 userId: sessionStorage.userId,
-                bio: '',
+                title: '',
+                content: '',
             }
         },
         methods: {
-            updateProfile() {
-                axios
-                    .put('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
-                        headers: {
-                            Authorization: 'Bearer ' + sessionStorage.getItem('token') 
-                            },
-                        bio: this.bio
-                    })
-                    .then(response => {
-                        this.bio = response.data;
-                        this.$router.push('/');
-                        document.location.reload();
-                        })
-                    .catch(error => console.log(error));
+            updateMessage() {
+                axios.put('http://localhost:3000/api/message/' + sessionStorage.getItem('messageId'), {
+                    title: this.title,
+                    content: this.content
+                });
+                document.location.reload();  
         }
         }
     }

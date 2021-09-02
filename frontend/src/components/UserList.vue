@@ -66,7 +66,11 @@ export default {
 		},
     mounted () {
         axios
-        .get('http://localhost:3000/api/user/profile/')
+        .get('http://localhost:3000/api/user/profile/', {
+          headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+        })
         .then(response => (this.profiles = response.data))
         .catch(error => console.log(error));
         },
