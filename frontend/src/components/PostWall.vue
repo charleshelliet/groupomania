@@ -9,8 +9,8 @@
                                 <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                             </div>
                             <div class="ml-2">
-                                <div class="h5 m-0">@KIKOU {{message.userId}}</div>
-                                <div class="h7 text-muted">Miracles Lee Cross</div>
+                                <div class="h5 m-0">{{message.User.username}}</div>
+                                <div class="h7 text-muted">{{message.User.email}}</div>
                             </div>
                             <div>
                                 <div class="dropdown">

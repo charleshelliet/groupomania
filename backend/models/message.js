@@ -1,5 +1,6 @@
 const sequelize = require('../database');
 const { Sequelize, DataTypes, Model } = require('sequelize');
+const User = require("../models/user");
 
 class Message extends Model {}
 
@@ -39,6 +40,8 @@ Message.init({
     modelName: 'Message',
     tableName: 'message',
   });
+
+Message.belongsTo(User);
 
 console.log(Message === sequelize.models.Message);
 

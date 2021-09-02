@@ -6,6 +6,35 @@ const User = require('../models/user');
 const EMAIL_REGEX     = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX  = /^(?=.*\d).{4,20}$/;
 
+//route all profiles
+exports.allProfiles = (req, res, next) => {
+    //paramètres
+    var fields = req.query.fields;
+    var limit = parseInt(req.query.limit);
+    var offset = parseInt(req.query.offset);
+    var order = req.query.order;
+    
+    //fonction
+    User.findAll({
+      order: [order != null ? order.split(":") : ["updatedAt", "DESC"]],
+      attributes: fields !== "*" && fields != null ? fields.split(",") : null,
+      limit: !isNaN(limit) ? limit : null,
+      offset: !isNaN(offset) ? offset : null,
+
+    })
+      .then(function (profils) {
+        if (profils) {
+          res.status(200).json(profils);
+        } else {
+          res.status(404).json({ error: "pas de messages trouvés" });
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.status(500).json({ error: "champs invalides" });
+      });
+  };
+
 //route signup
 exports.signup = (req, res, next) => {
 

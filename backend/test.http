@@ -41,6 +41,14 @@ Content-Type: application/json
     
 }
 
+###
+get http://localhost:3000/api/user/profile/
+Content-Type: application/json
+
+{
+    
+}
+
 //Test API routes MESSAGES
 
 ###
@@ -68,4 +76,12 @@ Content-Type: application/json
 {
     "title": "Changement de titre",
     "content": "Je sais faire une requête PUT!"
+}
+
+###
+get http://localhost:3000/api/message/
+Content-Type: application/json
+
+{
+    
 }

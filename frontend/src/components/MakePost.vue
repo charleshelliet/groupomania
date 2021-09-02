@@ -15,7 +15,7 @@
             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <div class="form-group">
                     <label class="sr-only" for="userId">post</label>
-                    <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
+                    <textarea hidden class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="message">post</label>
