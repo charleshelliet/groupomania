@@ -15,7 +15,7 @@
                       <th scope="col" class="border-0 text-uppercase font-medium">Métier</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Date de création</th>
-                      <th scope="col" class="border-0 text-uppercase font-medium">Catégorie</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Admin ?</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Gérer</th>
                     </tr>
                   </thead>
@@ -35,10 +35,9 @@
                           <span class="text-muted">{{profile.createdAt}}</span><br>
                       </td>
                       <td>
-                        <select class="form-control category-select" id="exampleFormControlSelect1">
-                          <option>Admin</option>
-                          <option>User</option>
-                        </select>
+                        <div class="form-control category-select" id="exampleFormControlSelect1">
+                          <option>{{profile.isAdmin}}</option>
+                        </div>
                       </td>
                       <td>
                         <button @click.prevent="deleteAccount(profile.id)" type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
@@ -86,3 +85,10 @@ export default {
 
 </script>
 
+<style scoped>
+  @media (max-width: 768px) { 
+    .container {
+    visibility: hidden;
+  } 
+}
+</style>

@@ -89,4 +89,12 @@
         right: 10px;
     }
 
+@media (max-width: 768px) {
+    .modale {
+        position: initial;
+        top: 0;
+        left: 0;
+    }
+}
+
 </style>

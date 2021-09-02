@@ -87,4 +87,10 @@
         right: 10px;
     }
 
+@media (max-width: 768px) {
+    .modale {
+        top: 0;
+        left: 0;
+    }
+}
 </style>

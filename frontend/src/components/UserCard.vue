@@ -42,4 +42,10 @@ export default {
     .bio {
         text-align: left;
     }
+
+    @media (max-width: 1250px) {
+    .col-md-3 {
+        padding-bottom: 15px;
+    }
+}
 </style>

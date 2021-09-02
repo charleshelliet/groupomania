@@ -120,4 +120,11 @@
 	border-color: black;
   }
 }
+
+@media (max-width: 768px) { 
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
 </style>

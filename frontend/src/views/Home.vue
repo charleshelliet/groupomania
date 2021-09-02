@@ -49,5 +49,12 @@ export default {
     list-style-type: none;
   } 
 }
+
+@media (max-width: 1250px) {
+  .row {
+    padding: 1%;
+  }
+}
+
 </style>
 

@@ -118,5 +118,10 @@ export default {
     .d-flex {
         padding: 2%;
     }
+    iframe {
+    max-width: 100%;
+	max-height: 100%;
+    }
+
 }
 </style>

@@ -61,4 +61,11 @@ export default {
     height: 60px;
     width: 130px;
   }
+
+
+@media (max-width: 768px) {
+  button {
+    visibility: hidden;
+  }
+}
 </style>
