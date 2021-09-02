@@ -13,15 +13,13 @@
                                 <div class="h7 text-muted">{{message.User.email}}</div>
                             </div>
                             <div>
-                                <div class="dropdown">
+                                <div v-if="user.isAdmin === true" class="dropdown">
                                     <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                                     <div class="h6 dropdown-header">Options</div>
-                                        <a class="dropdown-item" href="#">Sauvegarder</a>
-                                        <a class="dropdown-item" href="#">Cacher</a>
-                                        <a class="dropdown-item" href="#">Signaler</a>
+                                        <a @click.prevent="deleteMessage(message.id)" class="dropdown-item" href="#">Supprimer</a>
                                     </div>
                                 </div>
                             </div>
@@ -56,6 +54,7 @@ export default {
     data() {
 		return {
 			messages: [],
+            user: '',
 			}
 		},
     mounted () {
@@ -63,8 +62,24 @@ export default {
         .get('http://localhost:3000/api/message/')
         .then(response => (this.messages = response.data))
         .catch(error => console.log(error));
+        },
+    methods: {
+        deleteMessage(messageId) {
+            console.log(messageId);
+            //axios.delete('http://localhost:3000/api/message/' + messageId);
+            document.location.reload();
+      }
+    },
+    async created() {
+        const response = await axios.get('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+            });
+            console.log(response);
+            this.user = response.data;
         }
-    }   
+}   
 </script>
 
 <style scoped lang="scss">

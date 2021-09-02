@@ -110,7 +110,8 @@ exports.login = (req, res, next) => {
                         { userFound: userFound._id },
                         'RANDOM_TOKEN_SECRET',
                         { expiresIn: '24h' }
-                      )
+                      ),
+                    'isAdmin': userFound.isAdmin
                 });
             } else {
                 return res.status(403).json({ 'password_error': 'Mot de passe erroné'});
@@ -134,7 +135,7 @@ exports.getUserProfile = (req, res, next) => {
 
     //fonction
     User.findOne({
-        attributes: ['id', 'email', 'username', 'bio'],
+        attributes: ['id', 'email', 'username', 'bio', 'isAdmin'],
         where: { id: userId}
     }).then(function(user) {
         if (user) {

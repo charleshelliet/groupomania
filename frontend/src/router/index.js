@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Admin from '../views/Admin.vue'
 
 const routes = [
   {
@@ -23,6 +24,18 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    beforeEnter: (to, from, next) => {
+      if(sessionStorage.getItem('isAdmin') === 'false') {
+        next("/login")
+      } else {
+        next();
+      }
+    }
   },
   {
     path: '/:pathMatch(.*)',

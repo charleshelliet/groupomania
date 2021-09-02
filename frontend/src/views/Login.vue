@@ -81,6 +81,8 @@
                     .then(response => {
                         sessionStorage.setItem('token', response.data.token);
                         sessionStorage.setItem('id', response.data.userId);
+                        sessionStorage.setItem('isAdmin', response.data.isAdmin);
+                        console.log(response.data);
                         //this.$store.commit('setAuthentication', true);
                         this.$router.push('/');
                     })
