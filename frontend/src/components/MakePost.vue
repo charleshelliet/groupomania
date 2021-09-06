@@ -11,23 +11,23 @@
         </ul>
       </div>
       <div class="card-body">
-        <div class="tab-content" id="myTabContent">
+        <form class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <div class="form-group">
                     <label class="sr-only" for="userId">post</label>
-                    <textarea hidden class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
+                    <textarea hidden class="form-control" id="userId" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="message">post</label>
+                    <label class="sr-only" for="title">post</label>
                     <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.title"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="message">post</label>
+                    <label class="sr-only" for="content">post</label>
                     <textarea class="form-control" id="content" rows="3" placeholder="Quoi de neuf ?" v-model="message.content"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="message">post</label>
-                    <textarea class="form-control" id="content" rows="1" placeholder="Lien Youtube" v-model="message.attachment"></textarea>
+                    <label class="sr-only" for="attachment">post</label>
+                    <textarea class="form-control" id="attachment" rows="1" placeholder="Lien Youtube" v-model="message.attachment"></textarea>
                 </div>
             </div>
             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
@@ -39,13 +39,13 @@
                 </div>
                 <div class="py-4"></div>
             </div>
-        </div>
+        </form>
         <div class="btn-toolbar justify-content-between">
             <div class="btn-group">
                 <button type="submit" class="btn btn-primary" @click="sendPost">partager</button>
             </div>
             <div class="btn-group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                <button id="btnGroupDrop1" aria-label="visibility" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i class="fa fa-globe"></i>
                 </button>
@@ -89,3 +89,18 @@ export default {
     }   
 }   
 </script>
+
+<style scoped>
+
+:hover.btn-primary {
+    background-color: rgb(209,81,90);
+    border-color: rgb(9,31,67);
+    color: white;
+}
+
+:hover.btn-link {
+    background-color: rgb(209,81,90);
+    border-color: rgb(9,31,67);
+    color: white;
+}
+</style>

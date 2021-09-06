@@ -59,7 +59,17 @@ export default {
         text-align: left;
     }
     #delete {
+        color: rgb(9,31,67);
+    }
+
+    #delete:hover {
         color: rgb(209,81,90);
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: rgb(9,31,67);
+        font-weight: bold;
     }
 
 </style>

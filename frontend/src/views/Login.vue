@@ -15,25 +15,27 @@
                                 <form @submit.prevent="loginSubmit"
                                 id="login-form" action="/" method="post" role="form" style="display: block;">
                                     <div class="form-group">
-                                        <input type="email" name="email" v-model="email" id="email" tabindex="1" class="form-control" placeholder="Adresse email">
+                                        <label hidden class="sr-only" for="email">Adresse email</label>
+                                        <input type="email" name="email" v-model="email" id="email" class="form-control" placeholder="Adresse email">
                                         <div v-if="errors.email" class="text-danger">
                                         <strong v-text="errors.email"></strong>
                                     </div>
                                     </div>
                                     <div class="form-group">
-                                            <input type="password" name="password" v-model="password" id="password" tabindex="2" class="form-control" placeholder="Mot de passe">
+                                            <label hidden class="sr-only" for="password">Mot de passe</label>
+                                            <input type="password" name="password" v-model="password" id="password" class="form-control" placeholder="Mot de passe">
                                             <div v-if="errors.password" class="text-danger">
                                             <strong v-text="errors.password"></strong>
                                      </div>
                                     </div>
                                         <div class="form-group text-center">
-                                            <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                            <input type="checkbox" class="" name="remember" id="remember">
                                             <label for="remember">Rester connecté</label>
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-3">
-                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Se connecter">
+                                                    <input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-login" value="Se connecter">
                                                 </div>
                                             </div>
                                         </div>
@@ -41,7 +43,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="text-center">
-                                                        <a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Mot de passe oublié ?</a>
+                                                        <a href="https://phpoll.com/recover" class="forgot-password">Mot de passe oublié ?</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,7 +104,7 @@
   padding: 30px;
 
   a {
-    font-weight: normal;
+    font-weight: bold;
     color: #566777;
 
     &.router-link-exact-active {

@@ -15,30 +15,34 @@
                                 <form @submit.prevent="registerSubmit"
 									id="register-form" action="/" method="post" role="form" style="display: block;">
 										<div class="form-group">
-											<input type="text" name="username" v-model="username" id="username" tabindex="1" class="form-control" placeholder="Nom d'utilisateur">
+                      <label hidden class="sr-only" for="username">Nom d'utilisateur</label>
+											<input type="text" name="username" v-model="username" id="username" class="form-control" placeholder="Nom d'utilisateur">
                       <div v-if="errors.username" class="text-danger">
                           <strong v-text="errors.username"></strong>
                       </div>
 										</div>
 										<div class="form-group">
-											<input type="email" name="email" v-model="email" id="email" tabindex="1" class="form-control" placeholder="Adresse email">
+                      <label hidden class="sr-only" for="email">Adresse email</label>
+											<input type="email" name="email" v-model="email" id="email" class="form-control" placeholder="Adresse email">
                       <div v-if="errors.email" class="text-danger">
                           <strong v-text="errors.email"></strong>
                       </div>
 										</div>
 										<div class="form-group">
-											<input type="password" name="password" v-model="password" id="password" tabindex="2" class="form-control" placeholder="Mot de passe">
+                      <label hidden class="sr-only" for="password">Mot de passe</label>
+											<input type="password" name="password" v-model="password" id="password" class="form-control" placeholder="Mot de passe">
                       <div v-if="errors.password" class="text-danger">
                           <strong v-text="errors.password"></strong>
                       </div>
 										</div>
 										<div class="form-group">
-											<textarea type="text" name="bio" v-model="bio" id="bio" tabindex="2" class="form-control" placeholder="Décrivez-vous en quelques mots"></textarea>
+                      <label hidden class="sr-only" for="bio">Bio</label>
+											<textarea type="text" name="bio" v-model="bio" id="bio" class="form-control" placeholder="Décrivez-vous en quelques mots"></textarea>
 										</div>
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-6 col-sm-offset-3">
-													<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="S'inscrire !">
+													<input type="submit" name="register-submit" id="register-submit" class="form-control btn btn-register" value="S'inscrire !">
 												</div>
 											</div>
 										</div>
@@ -101,7 +105,7 @@
   padding: 30px;
 
   a {
-    font-weight: normal;
+    font-weight: bold;
     color: #566777;
 
     &.router-link-exact-active {
@@ -114,7 +118,7 @@
   }
   .btn {
     background-color: rgb(209,81,90);
-    color: white;
+    color: black;
   }
   .panel {
 	border-color: black;

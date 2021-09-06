@@ -16,7 +16,7 @@
                             </div>
                             <div>
                                 <div v-if="user.isAdmin === true" class="dropdown">
-                                    <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-link dropdown-toggle" aria-label="delete" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
@@ -122,6 +122,11 @@ export default {
     max-width: 100%;
 	max-height: 100%;
     }
+}
 
+:hover.btn-link {
+    background-color: rgb(209,81,90);
+    border-color: rgb(9,31,67);
+    color: white;
 }
 </style>

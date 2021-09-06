@@ -50,6 +50,22 @@ export default {
   } 
 }
 
+.btn {
+    background-color: rgb(9,31,67);
+    border-color: black;
+    color: white;
+
+}
+
+a {
+  color: rgb(9,31,67);
+}
+
+a:hover {
+  color: rgb(209,81,90);
+}
+
+
 @media (max-width: 1250px) {
   .row {
     padding: 1%;
