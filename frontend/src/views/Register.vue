@@ -109,7 +109,7 @@
     color: #566777;
 
     &.router-link-exact-active {
-      color: rgb(209,81,90);
+      color: rgb(196,51,62);
       font-weight: bold;
     }
   }
@@ -117,8 +117,8 @@
       margin-top: 2%;
   }
   .btn {
-    background-color: rgb(209,81,90);
-    color: black;
+    background-color: rgb(196,51,62);
+    color: white;
   }
   .panel {
 	border-color: black;

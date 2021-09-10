@@ -3,10 +3,10 @@
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publier un message</a>
+            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publier une vidéo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
+            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Publier une image</a>
           </li>
         </ul>
       </div>
@@ -31,6 +31,18 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                <div class="form-group">
+                    <label class="sr-only" for="userId">post</label>
+                    <textarea hidden class="form-control" id="userId" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="title">post</label>
+                    <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.title"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="content">post</label>
+                    <textarea class="form-control" id="content" rows="3" placeholder="Quoi de neuf ?" v-model="message.content"></textarea>
+                </div>
                 <div class="form-group">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFile">

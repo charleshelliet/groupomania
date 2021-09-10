@@ -63,8 +63,6 @@ exports.signup = (req, res, next) => {
   //fonction
   bcrypt.hash(password, 10)
     .then(hash => {
-      console.log(hash)
-      console.log(username)
       const newUser = User.create({
         email: email,
         username: username,
@@ -100,31 +98,31 @@ exports.login = (req, res, next) => {
   User.findOne({
     where: { email: email }
 })
-.then(function(userFound) {
-    if (userFound) {
-        bcrypt.compare(password, userFound.password, function(errBycrypt, resBycrypt) {
-            if (resBycrypt) {
-                return res.status(200).json({
-                    'userId': userFound.id,
-                    'token': jwt.sign(
-                        { userFound: userFound._id },
-                        'RANDOM_TOKEN_SECRET',
-                        { expiresIn: '24h' }
-                      ),
-                    'isAdmin': userFound.isAdmin
-                });
-            } else {
-                return res.status(403).json({ 'password_error': 'Mot de passe erroné'});
-            }
-        })
-    }
-    else {
-        return res.status(404).json({ 'email_error': 'Utilisateur introuvable' });
-    }
-})
-.catch(function(error) {
-    return res.status(500).json({ error });
-})
+  .then(function(userFound) {
+      if (userFound) {
+          bcrypt.compare(password, userFound.password, function(errBycrypt, resBycrypt) {
+              if (resBycrypt) {
+                  return res.status(200).json({
+                      'userId': userFound.id,
+                      'token': jwt.sign(
+                          { userFound: userFound._id },
+                          'RANDOM_TOKEN_SECRET',
+                          { expiresIn: '24h' }
+                        ),
+                      'isAdmin': userFound.isAdmin
+                  });
+              } else {
+                  return res.status(403).json({ 'password_error': 'Mot de passe erroné'});
+              }
+          })
+      }
+      else {
+          return res.status(404).json({ 'email_error': 'Utilisateur introuvable' });
+      }
+  })
+  .catch(function(error) {
+      return res.status(500).json({ error });
+  })
 }
 
 //route accès profile
@@ -154,8 +152,6 @@ exports.updateUserProfile = (req, res, next) => {
     //paramètres
     const userId = req.params.id;
     const bio = req.body.bio;
-    console.log(userId);
-    console.log(bio);
 
     User.findOne({where: {id: userId}})
     .then(user => {
@@ -164,42 +160,18 @@ exports.updateUserProfile = (req, res, next) => {
         })
           .then(() => res.status(200).json({ message: 'Bio modifiée !'}))
           .catch(error => {
-            console.log(error)
             res.status(400).json({ error })
           });
     }) 
     .catch(error =>{
-      console.log(error)
       res.status(500).json({ error })
     })
-
-    //fonction
-    /*
-    User.findOne({
-        attributes: ['id', 'bio'],
-        where: { id: userId }
-    })
-        .then(userFound => {
-            if (userFound) {userFound.update({bio: (bio ? bio : userFound.bio)})
-                .then(() => {
-                    if (userFound) {
-                        res.status(201).json({userFound})
-                    }
-                    else {res.status(500).json({ 'error': 'impossible de modifier le profil' });}
-                })
-                .catch(error => res.status(500).json({ 'error': 'impossible de modifier le user' }));}
-
-            else {res.status(404).json({ 'error': 'utilisateur non trouvé' });}
-        })
-        .catch(error => res.status(500).json({ 'error': 'impossible de vérifier le profil' }))
-    */
 };
 
 //route suppression utilisateur
 exports.deleteUserProfile = (req, res, next) => {
 
     const userId = req.params.id;
-    console.log(userId);
 
     User.findOne({where: {id: userId}})
     .then(user => {
@@ -214,5 +186,4 @@ exports.deleteUserProfile = (req, res, next) => {
       console.log(error)
       res.status(500).json({ error })
     })
-
 };

@@ -4,7 +4,7 @@
         <div class="overlay">
             <div class="modale card">
                 <div v-on:click="toggleModale" class="btn-modale btn btn-danger">X</div>
-                <h3>Modifiez votre publication :)</h3>
+                <h3>Modérez la publication</h3>
                 <div>
                     <textarea type="text" name="title" v-model="title" placeholder="Titre" rows="1"></textarea>
                 </div>

@@ -1,6 +1,5 @@
 const Message = require("../models/message");
 const User = require("../models/user");
-const fs = require('fs'); //gestion des fichiers
 
 //route création de message
 exports.createMessage = async (req, res, next) => {
@@ -9,12 +8,8 @@ exports.createMessage = async (req, res, next) => {
   const title = req.body.title;
   const content = req.body.content;
   const userId = req.body.userId;
-  console.log(req.body);
   const url = req.body.attachment;
   const attachment = url.split("v=")[1].substring(0, 11);
-  //const attachment = `${req.protocol}://${req.get('host')}/images/${req.file}`;
-  console.log(userId);
-  console.log(attachment);
 
   if (title == null || content == null) {
     return res.status(400).json({ error: "Paramètres manquants" });
@@ -62,14 +57,6 @@ exports.listMessages = (req, res, next) => {
     limit: !isNaN(limit) ? limit : null,
     offset: !isNaN(offset) ? offset : null,
     include: User,
-    /*
-    include: [
-      {
-        model: User,
-        attributes: ["username"],
-      },
-    ],
-    */
   })
     .then(function (messages) {
       if (messages) {
@@ -79,7 +66,6 @@ exports.listMessages = (req, res, next) => {
       }
     })
     .catch(function (err) {
-      console.log(err);
       res.status(500).json({ error: "champs invalides" });
     });
 };
@@ -87,67 +73,29 @@ exports.listMessages = (req, res, next) => {
 //route suppression message
 exports.deleteMessage = (req, res, next) => {
 
-      //const userId = 1;
-      //console.log(req.params.userId);
-      const messageId = req.params.id;
-      console.log(req.params.id);
+  const messageId = req.params.id;
 
-      Message.findOne({where: {id: messageId}})
-        .then(post => {
-            //Message.deleteOne({where: {id: messageId}})
-            post.destroy()
-              .then(() => res.status(200).json({ message: 'Post supprimé !'}))
-              .catch(error => {
-                console.log(error)
-                res.status(400).json({ error })
-              });
-          ;
-        
-        }) 
-        .catch(error =>{
-          console.log(error)
-          res.status(500).json({ error })
-        })
+  Message.findOne({where: {id: messageId}})
+    .then(post => {
+        post.destroy()
+          .then(() => res.status(200).json({ message: 'Post supprimé !'}))
+          .catch(error => {
+            res.status(400).json({ error })
+          });
+      ;
+    
+    }) 
+    .catch(error =>{
+      res.status(500).json({ error })
+    })
 };
-
-/*
-//route modification message + écrasement photo dossier
-exports.updateMessage = (req, res, next) => {
-  
-  const messageId = req.params.id; 
-  
-  let messageObject = {};
-
-  req.file ? (Message.findOne({where: {id: messageId}})
-    .then((message) => {
-      const filename = message.attachment.split('/images/')[1]
-      fs.unlinkSync(`images/${filename}`)
-    }),
-    messageObject = {
-      ...JSON.parse(req.body.message),
-      attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    }
-  ) : ( messageObject = { ...req.body })
-  message.update()
-  //Message.updateOne({_id: req.params.id}, {...messageObject, _id: req.params.id})
-    .then(() => res.status(200).json({
-      message: 'Publication mise à jour !'
-    }))
-    .catch((error) => res.status(400).json({
-      error
-    }))
-};
-*/
 
 //route modification message
 exports.updateMessage = (req, res, next) => {
 
-  //const userId = 1;
-  //console.log(req.params.userId);
   const messageId = req.params.id;
   const title = req.body.title;
   const content = req.body.content;
-  console.log(req.params.id);
 
   Message.findOne({where: {id: messageId}})
     .then(post => {
