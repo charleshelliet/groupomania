@@ -27,7 +27,7 @@
                             </div>
                     </div>
                     <div class="card-body">
-                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{message.updatedAt}}</div>
+                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Modifié le {{dateFormat(message.updatedAt)}}</div>
                             <a class="card-link" href="#">
                                 <h5 class="card-title">{{message.title}}</h5>  
                             </a>
@@ -86,6 +86,11 @@ export default {
             console.log(messageId);
             axios.delete('http://localhost:3000/api/message/' + messageId);
             document.location.reload();
+      },
+      dateFormat(date) {
+        const event = new Date(date);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return event.toLocaleDateString(undefined, options);
       }
     },
     async created() {
