@@ -32,15 +32,12 @@
             </div>
             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
                 <div class="form-group">
-                    <label class="sr-only" for="userId">post</label>
                     <textarea hidden class="form-control" id="userId" rows="1" placeholder="Titre" v-model="message.userId"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="title">post</label>
                     <textarea class="form-control" id="title" rows="1" placeholder="Titre" v-model="message.title"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="content">post</label>
                     <textarea class="form-control" id="content" rows="3" placeholder="Quoi de neuf ?" v-model="message.content"></textarea>
                 </div>
                 <div class="form-group">
@@ -90,7 +87,11 @@ export default {
     methods: {
         sendPost() {
         axios
-        .post('http://localhost:3000/api/message/', this.message)
+        .post('http://localhost:3000/api/message/', this.message, {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+        })
         .then(response => {
             this.message = response.data;
             this.$router.push('/');

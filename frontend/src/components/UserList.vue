@@ -76,7 +76,11 @@ export default {
     methods: {
         deleteAccount(profileId) {
             console.log(profileId);
-            axios.delete('http://localhost:3000/api/user/profile/' + profileId);
+            axios.delete('http://localhost:3000/api/user/profile/' + profileId, {
+              headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+            });
             document.location.reload();
       }
     }

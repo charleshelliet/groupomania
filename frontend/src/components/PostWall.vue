@@ -84,7 +84,11 @@ export default {
         },
         deleteMessage(messageId) {
             console.log(messageId);
-            axios.delete('http://localhost:3000/api/message/' + messageId);
+            axios.delete('http://localhost:3000/api/message/' + messageId, {
+                headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+            });
             document.location.reload();
       },
       dateFormat(date) {
