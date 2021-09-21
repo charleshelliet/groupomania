@@ -12,7 +12,7 @@ Téléchargez le repository et suivez les instructions ci-dessous pour installer
 
 ## Base de données - MySQL
 
-?
+- Importer localement le fichier groupomania.sql
 
 ## Démarrage du backend
 
