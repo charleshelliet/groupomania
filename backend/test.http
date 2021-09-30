@@ -85,3 +85,14 @@ Content-Type: application/json
 {
     
 }
+
+###
+post http://localhost:3000/api/message/38/comments
+Content-Type: application/json
+Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzMwMDc4MzMsImV4cCI6MTYzMzA5NDIzM30.tjnJHJYJM9gn_IG-yczOFXt_K8X-wFOmZ60Jx-ctr1o
+
+{
+    "content": "Nouveau commentaire",
+    "userId" : 23,
+    "messageId": 38
+}

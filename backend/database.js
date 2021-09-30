@@ -16,7 +16,7 @@ const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env
 
   try {
     sequelize.authenticate();
-    console.log('Kikou Charles Connecté à la base de données MySQL!');
+    console.log('Charles Connecté à la base de données MySQL!');
   } catch (error) {
     console.error('Impossible de se connecter, erreur suivante :', error);
   }

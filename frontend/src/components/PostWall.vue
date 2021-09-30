@@ -37,11 +37,19 @@
                         </div>
                         <div class="card-footer">
                             <a href="#" class="card-link"><i class="fa fa-gittip"></i> J'aime</a>
-                            <a href="#" class="card-link"><i class="fa fa-comment"></i> Commenter</a>
                             <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Partager</a>
                             <a v-if="user.isAdmin === true" @click.prevent="toggleModale(message.id)" href="#" class="card-link"><i class="fa fa-edit"></i> Modifier</a>
                         </div>
-                    
+                    <div class="container mt-5 mb-5">
+
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://picsum.photos/50/50" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment" v-model="comment.content"><button class="btn btn-primary" type="button" @click.prevent="sendComment(message.id)">Comment</button></div>
+                    <div class="commented-section mt-2">
+                        <div class="d-flex flex-row align-items-center commented-user">
+                            <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>
+                        </div>
+                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                    </div>
+                </div>  
                 </div>
                 </div>
             </li>   
@@ -61,6 +69,11 @@ export default {
 			messages: [],
             user: '',
             revele: false,
+            comment: {
+                content:"",
+                messageId: sessionStorage.getItem('messageId'),
+                userId: sessionStorage.getItem('id')
+                },
 			}
 		},
     components: {
@@ -95,7 +108,21 @@ export default {
         const event = new Date(date);
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return event.toLocaleDateString(undefined, options);
-      }
+      },
+      sendComment(messageId) {
+        axios
+        .post('http://localhost:3000/api/message/' + messageId + '/comments', this.comment, {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                }
+        })
+        .then(response => {
+            this.comment = response.data;
+            this.$router.push('/');
+            document.location.reload();
+            })
+        .catch(error => console.log(error));
+        }
     },
     async created() {
         const response = await axios.get('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
@@ -134,6 +161,12 @@ export default {
 }
 
 :hover.btn-link {
+    background-color: rgb(209,81,90);
+    border-color: rgb(9,31,67);
+    color: white;
+}
+
+:hover.btn {
     background-color: rgb(209,81,90);
     border-color: rgb(9,31,67);
     color: white;

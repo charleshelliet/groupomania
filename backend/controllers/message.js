@@ -1,5 +1,6 @@
 const Message = require("../models/message");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 
 //route création de message
 exports.createMessage = async (req, res, next) => {
@@ -113,4 +114,27 @@ exports.updateMessage = (req, res, next) => {
       console.log(error)
       res.status(500).json({ error })
     })
+};
+
+//route création de commentaire
+exports.createComment = async (req, res, next) => {
+
+  //paramètres
+  const content = req.body.content;
+  const userId = req.body.userId;
+  const messageId = req.body.messageId;
+
+  //fonction
+  const newComment = await Comment.create({
+    content: content,
+    userId: userId,
+    messageId: messageId
+  })
+    .then((newComment) => {
+      res.status(201).json(newComment);
+    })
+    .catch((error) =>
+      res.status(500).json({ error: "impossible de poster le message" })
+    );
+    console.log(newComment);
 };
