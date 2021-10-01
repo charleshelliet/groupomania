@@ -38,6 +38,17 @@ Comment.init({
     tableName: 'Comment',
   });
 
+
+User.belongsToMany(Message, {
+  through: Comment,
+  foreignKey: 'userId',
+  otherKey: 'messageId',
+});
+Message.belongsToMany(User, {
+  through: Comment,
+  foreignKey: 'messageId',
+  otherKey: 'userId',
+});
 Comment.belongsTo(Message);
 Comment.belongsTo(User);
 

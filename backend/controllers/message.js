@@ -138,3 +138,50 @@ exports.createComment = async (req, res, next) => {
     );
     console.log(newComment);
 };
+
+//route afficher les commentaires
+exports.getComments = (req, res, next) => {
+
+  //paramètres
+  const messageId = req.params.id;
+
+  if (messageId <= 0) {
+    return res.status(400).json({'error': 'invalid parameters'});
+  }
+
+  //fonction
+
+  Message.findOne({where: {id: messageId}})
+
+  .then(messageFound => {
+      if (messageFound) {
+
+        Comment.findAll({
+          where: {
+            messageId: messageId
+          },
+          include: User,
+        })
+          .then(function (comments) {
+            if (comments) {
+              res.status(200).json(comments);
+            } else {
+              res.status(404).json({ error: "pas de commentaires trouvés" });
+            }
+          })
+          .catch(function (err) {
+            console.log(err);
+            res.status(500).json({ error });
+          });
+        
+      }
+      else {
+        res.status(404).json({ 'error': 'pas de messages' });
+      }
+  }) 
+  .catch(error =>{
+    console.log(error)
+    res.status(500).json({ error })
+  })
+
+};

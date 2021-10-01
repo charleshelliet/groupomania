@@ -40,17 +40,18 @@
                             <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Partager</a>
                             <a v-if="user.isAdmin === true" @click.prevent="toggleModale(message.id)" href="#" class="card-link"><i class="fa fa-edit"></i> Modifier</a>
                         </div>
+                   
                     <div class="container mt-5 mb-5">
-
-                <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://picsum.photos/50/50" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment" v-model="comment.content"><button class="btn btn-primary" type="button" @click.prevent="sendComment(message.id)">Comment</button></div>
-                    <div class="commented-section mt-2">
-                        <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>
-                        </div>
-                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                        <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://picsum.photos/50/50" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment" v-model="comment.content"><button class="btn btn-primary" type="button" @click.prevent="sendComment(message.id)">Comment</button></div>
+                            <button @click="getComments(message.id, user.id)" class="btn btn-link">Afficher commentaires</button>
+                            <div v-bind:key="comment.id" v-for="comment in comments" class="commented-section mt-2">
+                                <div v-if="message.id === idMessageActif" class="d-flex flex-row align-items-center commented-user">
+                                    <h5 class="mr-2">{{comment.User.username}}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">Posté le {{dateFormat(comment.createdAt)}}</span>
+                                </div>
+                                <div class="d-flex flex-row add-comment-section mt-4 mb-4" v-if="message.id === idMessageActif" id="text-comment"><strong>"{{comment.content}}"</strong></div>
+                            </div>
+                        </div> 
                     </div>
-                </div>  
-                </div>
                 </div>
             </li>   
         </ul> 
@@ -69,11 +70,13 @@ export default {
 			messages: [],
             user: '',
             revele: false,
+            comments : [],
             comment: {
                 content:"",
                 messageId: sessionStorage.getItem('messageId'),
                 userId: sessionStorage.getItem('id')
                 },
+            idMessageActif: 0
 			}
 		},
     components: {
@@ -110,6 +113,8 @@ export default {
         return event.toLocaleDateString(undefined, options);
       },
       sendComment(messageId) {
+        console.log(messageId);
+        sessionStorage.setItem('messageId', messageId);
         axios
         .post('http://localhost:3000/api/message/' + messageId + '/comments', this.comment, {
             headers: {
@@ -122,7 +127,22 @@ export default {
             document.location.reload();
             })
         .catch(error => console.log(error));
-        }
+        },
+      getComments(messageId, userId) {
+        console.log(messageId);
+        console.log(userId);
+        axios
+        .get('http://localhost:3000/api/message/' + messageId + '/comments/', {
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token') 
+                },
+        })
+        .then(response => {
+            this.comments = response.data;
+            this.idMessageActif = messageId;
+            })
+        .catch(error => console.log(error));
+        },  
     },
     async created() {
         const response = await axios.get('http://localhost:3000/api/user/profile/' + sessionStorage.getItem('id'), {
@@ -159,6 +179,11 @@ export default {
 	max-height: 100%;
     }
 }
+
+#text-comment {
+        font-size: large;
+        text-align: left;
+    }
 
 :hover.btn-link {
     background-color: rgb(209,81,90);

@@ -96,3 +96,20 @@ Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzMwMDc4MzMs
     "userId" : 23,
     "messageId": 38
 }
+
+###
+get http://localhost:3000/api/message/comments
+Content-Type: application/json
+
+{
+    
+}
+
+###
+get http://localhost:3000/api/message/47/comments
+Content-Type: application/json
+Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzMwODYyMDMsImV4cCI6MTYzMzE3MjYwM30.ZaNZsfDdsqXM3AO05h8slGa8ITFOOgJEJMdA5WakeO8
+
+{
+    
+}
